@@ -3,7 +3,7 @@ import { User } from '../entity/User';
 import { GenericRepository } from './GenericRepository';
 import { getRepository, Repository, Not } from 'typeorm';
 import { ErrorBiactiva } from '../components/ErrorBiactiva';
-import { Msg } from '../msg/msg';
+import { Msg } from '../msg/Msg';
 let encriptutils = require('../components/encryputils')
 /************CONFIG CLASS**************** */
 const myClass = User
