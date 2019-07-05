@@ -1,0 +1,31 @@
+{
+   "type": "mysql",
+   "host": "sl-us-south-1-portal.48.dblayer.com",
+   "port": 23954,
+   "username": "admin",
+   "password": "DUXCWLVENEJCHBHO",
+   "database": "american_tower",
+   "synchronize": false,
+   "migrationsRun": false,
+   "logging": false,
+   "extra": {
+    "ssl": true
+},
+   "ssl": {
+    "ca": "C:\\cert\\cert.pem"
+  },
+   "entities": [
+      "lib/entity/*.js"
+   ],
+   "migrations": [
+      "lib/migration/**/*.js"
+   ],
+   "subscribers": [
+      "lib/subscriber/**/*.js"
+   ],
+   "cli": {
+      "entitiesDir": "src/entity",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
+   }
+}

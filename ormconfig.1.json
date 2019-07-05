@@ -1,0 +1,25 @@
+{
+   "type": "mysql",
+   "host": "localhost",
+   "port": 3306,
+   "username": "root",
+   "password": "root",
+   "database": "dev_typeorm",
+   "synchronize": false,
+   "migrationsRun": false,
+   "logging": false,
+   "entities": [
+      "lib/entity/**/*.js"
+   ],
+   "migrations": [
+      "lib/migration/**/*.js"
+   ],
+   "subscribers": [
+      "lib/subscriber/**/*.js"
+   ],
+   "cli": {
+      "entitiesDir": "src/entity",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
+   }
+}

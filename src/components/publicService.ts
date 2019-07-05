@@ -1,0 +1,1 @@
+export const getPublicServices = function (): any { return [{ "method": "POST", "url": "/entities/users/" }] }
