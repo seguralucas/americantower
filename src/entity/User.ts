@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpdate, BeforeInsert, ManyToOne, Index, JoinColumn } from "typeorm";
 import { GenericEntity } from "./GenericEntity";
 import { ErrorBiactiva } from "../components/ErrorBiactiva";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 import { Profile } from "./Profile";
 let encriptutils = require('../components/encryputils')
 

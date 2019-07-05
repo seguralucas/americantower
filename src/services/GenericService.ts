@@ -2,7 +2,7 @@ import { getConnectionDatabase } from '../components/dbHandler';
 import { User } from '../entity/User';
 import { getRepository, Repository } from 'typeorm';
 import { ErrorBiactiva } from '../components/ErrorBiactiva';
-import { Msg } from '../msg/msg';
+import { Msg } from '../msg/Msg';
 import { UserRepository } from '../repository/UserRepository';
 import { GenericRepository } from '../repository/GenericRepository';
 let encriptutils = require('../components/encryputils')

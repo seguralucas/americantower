@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpdate, BeforeInsert, ManyToMany, JoinTable, Index, ManyToOne, JoinColumn, OneToOne } from "typeorm";
 import { GenericEntity } from "./GenericEntity";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 import { ErrorBiactiva } from "../components/ErrorBiactiva";
 import { Provincia } from "./Provincia";
 import { Enforcement } from "./Enforcement";
@@ -8,7 +8,7 @@ import { ContextoPolitico } from "./ContextoPolitico";
 let encriptutils = require('../components/encryputils')
 @Entity()
 export class Municipalidad extends GenericEntity {
-    
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -17,10 +17,10 @@ export class Municipalidad extends GenericEntity {
 
     @Column()
     nombre: string;
- 
+
     @Column()
     latitud: number;
- 
+
     @Column()
     longitud: number;
 
@@ -47,7 +47,7 @@ export class Municipalidad extends GenericEntity {
     @Index()
     public provincia: Provincia
 
-    @Column({nullable:true})
+    @Column({ nullable: true })
     public enforcementId: number = null
 
     @OneToOne(type => Enforcement, enforcement => enforcement.municipalidad)
@@ -61,9 +61,9 @@ export class Municipalidad extends GenericEntity {
     @BeforeInsert()
     private validateInsert(): void {
         if (this.codigoMunicipio == null)
-            throw new ErrorBiactiva(Msg.CAMPO_OBLIGATORIO("codigoMunicipio"),Msg.CAMPO_OBLIGATORIO("codigoMunicipio"), 400)
+            throw new ErrorBiactiva(Msg.CAMPO_OBLIGATORIO("codigoMunicipio"), Msg.CAMPO_OBLIGATORIO("codigoMunicipio"), 400)
         if (this.nombre == null)
-            throw new ErrorBiactiva(Msg.CAMPO_OBLIGATORIO("nombre"),Msg.CAMPO_OBLIGATORIO("nombre"), 400)
+            throw new ErrorBiactiva(Msg.CAMPO_OBLIGATORIO("nombre"), Msg.CAMPO_OBLIGATORIO("nombre"), 400)
     }
 }
 

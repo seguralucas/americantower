@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { ErrorBiactiva } from "../components/ErrorBiactiva";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 const apiHandler = require("../components/apiHandler")
 
 export const authorizationDecision = async (req: Request, res: Response, next: NextFunction) => {

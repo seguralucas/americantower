@@ -1,10 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpdate, BeforeInsert, ManyToMany, JoinTable, Index, ManyToOne, JoinColumn, OneToOne } from "typeorm";
 import { GenericEntity } from "./GenericEntity";
-import { Msg } from "../msg/msg";
-import { ErrorBiactiva } from "../components/ErrorBiactiva";
 import { Municipalidad } from "./Municipalidad";
 @Entity()
-export class ContextoPolitico extends GenericEntity {    
+export class ContextoPolitico extends GenericEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
