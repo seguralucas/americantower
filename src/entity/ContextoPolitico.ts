@@ -43,9 +43,6 @@ export class ContextoPolitico extends GenericEntity {
     relacionGobierno: number;
 
     @Column()
-    urlReglamentacion: string;
-
-    @Column()
     observacion: string;
 
     @Column()
