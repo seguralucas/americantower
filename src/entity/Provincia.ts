@@ -13,7 +13,7 @@ export class Provincia extends GenericEntity {
     nombre: string;
 
     @Column()
-    codigoProvincia: string;
+    codigoProvincia: number;
 
     @OneToMany(type => Municipalidad, municipalidad => municipalidad.provincia)
     public municipalidades: Municipalidad[]

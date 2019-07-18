@@ -6,47 +6,49 @@ export class ContextoPolitico extends GenericEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    intendente: string;
+    @Column({nullable:true,type:'float'})
+    public scoring: number
+
 
     @Column()
     clasificacion: number;
 
-    @Column()
+    @Column({nullable:true})
     oficialistaProv: boolean;
 
-    @Column()
+    @Column({nullable:true})
     oficialistaNac: boolean;
 
-    @Column()
+    @Column({nullable:true})
     R: number;
 
-    @Column()
+    @Column({nullable:true})
     PJ: number;
 
-    @Column()
+    @Column({nullable:true})
     K: number;
 
-    @Column()
+    @Column({nullable:true})
     PRO: number;
 
-    @Column()
+    @Column({nullable:true})
     otrosPartidos: number;
 
-    @Column()
+    @Column({nullable:true})
     nMandato: number;
 
-    @Column()
+    @Column({nullable:true})
     mayoria: boolean;
 
-    @Column()
+    @Column({nullable:true})
     relacionGobierno: number;
 
-    @Column()
-    observacion: string;
+    @Column({nullable:true})
+    releccionInmediata: boolean;
 
-    @Column()
-    urlFotoIntendente: string;
+    @Column({nullable:true, type:"mediumtext"})
+    public observaciones
+
 
     @Column()
     puedeRelegir: boolean;
@@ -62,5 +64,3 @@ export class ContextoPolitico extends GenericEntity {
     @Index()
     public municipalidad: Municipalidad
 }
-
-

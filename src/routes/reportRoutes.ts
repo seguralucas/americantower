@@ -13,17 +13,16 @@ const currentClass = Municipalidad
 /******************************************** */
 
 router.post('/1', async (req, res, next) => {
-    console.log(req.body)
     let c:MunicipalidadRepository= new MunicipalidadRepository()
     let where="contextosPoliticos.createdAt=(select MAX(c2.createdAt) from contexto_politico as c2)"
-    if("provinciaId" in req.body)
+    if("idProvincia" in req.body)
         where+=" and provincia.id="+req.body.idProvincia
     if("nombre" in req.body)
-        where+="and (municipalidad.nombre like '%"+req.body.nombre+"%' or contextosPoliticos.intendente like '%"+req.body.nombre+"%')"
+        where+=" and (municipalidad.nombre like '%"+req.body.nombre+"%' or contextosPoliticos.intendente like '%"+req.body.nombre+"%')"
     let limit="limit" in req.query?req.query.limit:20
     let offset="offset" in req.query?req.query.offset:0
-
-     let m: Municipalidad[] = await c.getRepository().createQueryBuilder("municipalidad")
+    console.log(req.body)
+    let m: Municipalidad[] = await c.getRepository().createQueryBuilder("municipalidad")
     .leftJoinAndSelect("municipalidad.contextosPoliticos", "contextosPoliticos")
     .leftJoinAndSelect("municipalidad.provincia","provincia")
     .where(where)

@@ -1,0 +1,112 @@
+import {MigrationInterface, QueryRunner} from "typeorm";
+
+export class init1563479797614 implements MigrationInterface {
+
+    public async up(queryRunner: QueryRunner): Promise<any> {
+        await queryRunner.query("CREATE TABLE `archivo_reglamentacion` (`createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `updateAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `id` int NOT NULL AUTO_INCREMENT, `url` int NOT NULL, `descripcion` mediumtext NULL, `titulo` mediumtext NULL, `municipalidadId` int NOT NULL, INDEX `IDX_6e8414e2fa58e59cc8a8af87fc` (`municipalidadId`), PRIMARY KEY (`id`)) ENGINE=InnoDB");
+        await queryRunner.query("ALTER TABLE `contexto_politico` DROP COLUMN `intendente`");
+        await queryRunner.query("ALTER TABLE `contexto_politico` DROP COLUMN `urlFotoIntendente`");
+        await queryRunner.query("ALTER TABLE `contexto_politico` DROP COLUMN `urlDocumentacion`");
+        await queryRunner.query("ALTER TABLE `municipalidad` DROP COLUMN `enforcementId`");
+        await queryRunner.query("ALTER TABLE `enforcement` ADD `municipalidadId` int NOT NULL");
+        await queryRunner.query("ALTER TABLE `municipalidad` ADD `intendente` varchar(255) NULL");
+        await queryRunner.query("ALTER TABLE `municipalidad` ADD `urlFotoIntendente` varchar(255) NULL");
+        await queryRunner.query("ALTER TABLE `enforcement` CHANGE `scoring` `scoring` float NULL");
+        await queryRunner.query("ALTER TABLE `enforcement` CHANGE `enforcement` `enforcement` float NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `scoring` `scoring` float NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `oficialistaProv` `oficialistaProv` tinyint NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `oficialistaNac` `oficialistaNac` tinyint NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `R` `R` int NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `PJ` `PJ` int NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `K` `K` int NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `PRO` `PRO` int NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `otrosPartidos` `otrosPartidos` int NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `nMandato` `nMandato` int NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `mayoria` `mayoria` tinyint NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `relacionGobierno` `relacionGobierno` int NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `releccionInmediata` `releccionInmediata` tinyint NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `alturaSueloMinimo` `alturaSueloMinimo` float NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `alturaSueloMaximo` `alturaSueloMaximo` float NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `alturaAzoteaMinimo` `alturaAzoteaMinimo` float NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `alturaAzoteaMaximo` `alturaAzoteaMaximo` float NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroSueloFrente` `retiroSueloFrente` float NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroSueloLineaMunicipal` `retiroSueloLineaMunicipal` float NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroSueloFondo` `retiroSueloFondo` float NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroSueloMedianera` `retiroSueloMedianera` float NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroAzoteaFrente` `retiroAzoteaFrente` float NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroAzoteaLineaMunicipal` `retiroAzoteaLineaMunicipal` float NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroAzoteaFondo` `retiroAzoteaFondo` float NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroAzoteaMedianera` `retiroAzoteaMedianera` float NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `scoring` `scoring` float NULL");
+        await queryRunner.query("ALTER TABLE `zonificacion` CHANGE `propuestaRadiacion` `propuestaRadiacion` float NULL");
+        await queryRunner.query("ALTER TABLE `zonificacion` CHANGE `perfilElectrica` `perfilElectrica` float NULL");
+        await queryRunner.query("ALTER TABLE `zonificacion` CHANGE `demografia` `demografia` float NULL");
+        await queryRunner.query("ALTER TABLE `zonificacion` CHANGE `superficie` `superficie` float NULL");
+        await queryRunner.query("ALTER TABLE `zonificacion` CHANGE `zonaProhibitiva` `zonaProhibitiva` float NULL");
+        await queryRunner.query("ALTER TABLE `zonificacion` CHANGE `scoring` `scoring` float NULL");
+        await queryRunner.query("ALTER TABLE `conflictividad_vecinal` CHANGE `scoring` `scoring` float NULL");
+        await queryRunner.query("ALTER TABLE `municipalidad` CHANGE `latitud` `latitud` float NULL");
+        await queryRunner.query("ALTER TABLE `municipalidad` CHANGE `longitud` `longitud` float NULL");
+        await queryRunner.query("ALTER TABLE `municipalidad` CHANGE `telefono` `telefono` varchar(255) NULL");
+        await queryRunner.query("ALTER TABLE `municipalidad` CHANGE `linkMapa` `linkMapa` varchar(255) NULL");
+        await queryRunner.query("ALTER TABLE `municipalidad` CHANGE `scoring` `scoring` float NULL");
+        await queryRunner.query("CREATE INDEX `IDX_187b2958b8600b99671a7b0a7d` ON `enforcement` (`municipalidadId`)");
+        await queryRunner.query("ALTER TABLE `enforcement` ADD CONSTRAINT `FK_187b2958b8600b99671a7b0a7dc` FOREIGN KEY (`municipalidadId`) REFERENCES `municipalidad`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION");
+        await queryRunner.query("ALTER TABLE `archivo_reglamentacion` ADD CONSTRAINT `FK_6e8414e2fa58e59cc8a8af87fc0` FOREIGN KEY (`municipalidadId`) REFERENCES `municipalidad`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION");
+    }
+
+    public async down(queryRunner: QueryRunner): Promise<any> {
+        await queryRunner.query("ALTER TABLE `archivo_reglamentacion` DROP FOREIGN KEY `FK_6e8414e2fa58e59cc8a8af87fc0`");
+        await queryRunner.query("ALTER TABLE `enforcement` DROP FOREIGN KEY `FK_187b2958b8600b99671a7b0a7dc`");
+        await queryRunner.query("DROP INDEX `IDX_187b2958b8600b99671a7b0a7d` ON `enforcement`");
+        await queryRunner.query("ALTER TABLE `municipalidad` CHANGE `scoring` `scoring` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `municipalidad` CHANGE `linkMapa` `linkMapa` varchar(255) NOT NULL");
+        await queryRunner.query("ALTER TABLE `municipalidad` CHANGE `telefono` `telefono` varchar(255) NOT NULL");
+        await queryRunner.query("ALTER TABLE `municipalidad` CHANGE `longitud` `longitud` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `municipalidad` CHANGE `latitud` `latitud` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `conflictividad_vecinal` CHANGE `scoring` `scoring` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `zonificacion` CHANGE `scoring` `scoring` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `zonificacion` CHANGE `zonaProhibitiva` `zonaProhibitiva` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `zonificacion` CHANGE `superficie` `superficie` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `zonificacion` CHANGE `demografia` `demografia` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `zonificacion` CHANGE `perfilElectrica` `perfilElectrica` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `zonificacion` CHANGE `propuestaRadiacion` `propuestaRadiacion` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `scoring` `scoring` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroAzoteaMedianera` `retiroAzoteaMedianera` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroAzoteaFondo` `retiroAzoteaFondo` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroAzoteaLineaMunicipal` `retiroAzoteaLineaMunicipal` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroAzoteaFrente` `retiroAzoteaFrente` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroSueloMedianera` `retiroSueloMedianera` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroSueloFondo` `retiroSueloFondo` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroSueloLineaMunicipal` `retiroSueloLineaMunicipal` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `retiroSueloFrente` `retiroSueloFrente` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `alturaAzoteaMaximo` `alturaAzoteaMaximo` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `alturaAzoteaMinimo` `alturaAzoteaMinimo` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `alturaSueloMaximo` `alturaSueloMaximo` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `reglamentacion` CHANGE `alturaSueloMinimo` `alturaSueloMinimo` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `releccionInmediata` `releccionInmediata` tinyint NOT NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `relacionGobierno` `relacionGobierno` int NOT NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `mayoria` `mayoria` tinyint NOT NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `nMandato` `nMandato` int NOT NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `otrosPartidos` `otrosPartidos` int NOT NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `PRO` `PRO` int NOT NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `K` `K` int NOT NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `PJ` `PJ` int NOT NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `R` `R` int NOT NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `oficialistaNac` `oficialistaNac` tinyint NOT NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `oficialistaProv` `oficialistaProv` tinyint NOT NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` CHANGE `scoring` `scoring` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `enforcement` CHANGE `enforcement` `enforcement` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `enforcement` CHANGE `scoring` `scoring` float(12) NULL");
+        await queryRunner.query("ALTER TABLE `municipalidad` DROP COLUMN `urlFotoIntendente`");
+        await queryRunner.query("ALTER TABLE `municipalidad` DROP COLUMN `intendente`");
+        await queryRunner.query("ALTER TABLE `enforcement` DROP COLUMN `municipalidadId`");
+        await queryRunner.query("ALTER TABLE `municipalidad` ADD `enforcementId` int NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` ADD `urlDocumentacion` varchar(255) NOT NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` ADD `urlFotoIntendente` varchar(255) NOT NULL");
+        await queryRunner.query("ALTER TABLE `contexto_politico` ADD `intendente` varchar(255) NOT NULL");
+        await queryRunner.query("DROP INDEX `IDX_6e8414e2fa58e59cc8a8af87fc` ON `archivo_reglamentacion`");
+        await queryRunner.query("DROP TABLE `archivo_reglamentacion`");
+    }
+
+}

@@ -10,19 +10,24 @@ export class Enforcement extends GenericEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    hay: boolean;
+    @Column({nullable:true,type:'float'})
+    public scoring: number
+
+    @Column({nullable:true,type:'float'})
+    enforcement: number;
+
+    @Column({nullable:true, type:"mediumtext"})
+    public descripcion
 
     @Column()
-    public descripcion: string
+    public municipalidadId: number
 
-    @OneToOne(type => Municipalidad, municipalidad => municipalidad.enforcement)
+    @ManyToOne(type => Municipalidad, municipalidad => municipalidad.contextosPoliticos)
+    @JoinColumn({ name: "municipalidadId" })
+    @Index()
     public municipalidad: Municipalidad
-
     @BeforeInsert()
     private validateInsert(): void {
-        if (this.hay == null)
-            throw new ErrorBiactiva(Msg.CAMPO_OBLIGATORIO("hay"), Msg.CAMPO_OBLIGATORIO("hay"), 400)
         if (this.descripcion == null)
             throw new ErrorBiactiva(Msg.CAMPO_OBLIGATORIO("descripcion"), Msg.CAMPO_OBLIGATORIO("descripcion"), 400)
     }

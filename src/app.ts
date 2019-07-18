@@ -37,8 +37,12 @@ genericEntitiesServicePath.push({ "route": require('./routes/usersRoutes'), "ser
 genericEntitiesServicePath.push({ "route": require('./routes/MunicipalidadRoutes'), "serviceName": "municipalidades" })
 genericEntitiesServicePath.push({ "route": require('./routes/EnforcementRoutes'), "serviceName": "enforcements" })
 genericEntitiesServicePath.push({ "route": require('./routes/ProvinciaRoutes'), "serviceName": "provincias" })
-genericEntitiesServicePath.push({ "route": require('./routes/ContextoPoliticoRoutes'), "serviceName": "contexto-politico" })
+genericEntitiesServicePath.push({ "route": require('./routes/ContextoPoliticoRoutes'), "serviceName": "contextos-politicos" })
+genericEntitiesServicePath.push({ "route": require('./routes/ReglamentacionRoutes'), "serviceName": "reglamentaciones" })
 genericEntitiesServicePath.push({ "route": require('./routes/reportRoutes'), "serviceName": "reports" })
+genericEntitiesServicePath.push({ "route": require('./routes/ZonificacionRoutes'), "serviceName": "zonificaciones" })
+genericEntitiesServicePath.push({ "route": require('./routes/TazasRoutes'), "serviceName": "tazas" })
+genericEntitiesServicePath.push({ "route": require('./routes/ConflictividadVecinalRoutes'), "serviceName": "conflitividades-vecinal" })
 
 appOnPremise.use('/auth', auth);
 for (let service of genericEntitiesServicePath) {

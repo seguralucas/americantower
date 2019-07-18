@@ -21,7 +21,7 @@ export class User extends GenericEntity {
     email: string;
 
     @Column()
-    activo: boolean;
+    activo: boolean=true;
 
     @Column()
     dni: string;

@@ -11,7 +11,7 @@ const myClass = User
 export class UserRepository extends GenericRepository<User>{
 
     existeUsernameToInsert = async function (username): Promise<boolean> {
-        const user: User = await this.getRepository().findOne({ where: { "username": username } });
+        const user: User = await this.getRepository().findOne({ where: { "username": username} });
         return user != null
     }
 
@@ -22,7 +22,7 @@ export class UserRepository extends GenericRepository<User>{
 
 
     login = async function (username, password): Promise<User> {
-        const user: User = await this.getRepository().findOne({ where: { "username": username, "password": encriptutils.encrypt(password) } });
+        const user: User = await this.getRepository().findOne({ where: { "username": username, "password": encriptutils.encrypt(password),"activo":true  } });
         return user
     }
 

@@ -14,7 +14,7 @@ import { ContextoPoliticoRepository } from "./repository/ContextoPoliticoReposit
 
 createConnection().then(async connection => {
 
-/*  const adminProfil = new Profile()
+  const adminProfil = new Profile()
   adminProfil.id = 1
   adminProfil.name = "admin"
   await connection.manager.save(adminProfil);
@@ -49,35 +49,35 @@ createConnection().then(async connection => {
 
   let prov:Provincia= new Provincia()
   prov.nombre="Buenos Aires"
-  prov.codigoProvincia="BA1"
+  prov.codigoProvincia=1
   prov=await connection.manager.save(prov);
-  let enforment:Enforcement= new Enforcement()
-  enforment.descripcion="descripcion prueba"
-  enforment.hay=true
-  enforment=await connection.manager.save(enforment);
 
   let municipalidad:Municipalidad=new Municipalidad()
   municipalidad.codigoMunicipio="cod1"
-  municipalidad.demografia="demografia"
   municipalidad.latitud=123.22
   municipalidad.longitud=22.33
   municipalidad.nombre="Merlo"
   municipalidad.telefono="1122334455"
-  municipalidad.superficie="superficie"
   municipalidad.linkMapa="maps.google.com"
   municipalidad.provinciaId=prov.id
-  municipalidad.enforcementId=enforment.id
   municipalidad.scoring=12.33
+  municipalidad.intendente="aaaaa"
+  municipalidad.urlFotoIntendente="images.google.com/fotoIntendente"
   await connection.manager.save(municipalidad);
-  
+
+  let enforment:Enforcement= new Enforcement()
+  enforment.descripcion="descripcion prueba"
+  enforment.enforcement=0.4
+  enforment.municipalidadId=municipalidad.id
+  enforment=await connection.manager.save(enforment);
+
   let contextoPolitico:ContextoPolitico= new ContextoPolitico()
   contextoPolitico.cantidadMandatoMaxima=4
   contextoPolitico.clasificacion=1
-  contextoPolitico.intendente="Intendente aaa"
   contextoPolitico.K=55
   contextoPolitico.mayoria=false
   contextoPolitico.nMandato=33
-  contextoPolitico.observacion="Observacion2"
+  contextoPolitico.observaciones="Observacion"
   contextoPolitico.oficialistaNac=true
   contextoPolitico.oficialistaProv=true
   contextoPolitico.otrosPartidos=44
@@ -86,11 +86,9 @@ createConnection().then(async connection => {
   contextoPolitico.puedeRelegir=true
   contextoPolitico.R=11
   contextoPolitico.relacionGobierno=0
-  contextoPolitico.urlFotoIntendente="images.google.com/fotoIntendente"
-  contextoPolitico.urlReglamentacion="reglamentacion.com/reglamentacion"
   contextoPolitico.municipalidadId=1
   contextoPolitico=await connection.manager.save(contextoPolitico)
-*/
+
   let c:MunicipalidadRepository= new MunicipalidadRepository()
   let m: Municipalidad = await c.getRepository().createQueryBuilder("municipalidad")
   .leftJoinAndSelect("municipalidad.contextosPoliticos", "contextosPoliticos")

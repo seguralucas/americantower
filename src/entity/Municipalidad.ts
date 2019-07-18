@@ -5,6 +5,11 @@ import { ErrorBiactiva } from "../components/ErrorBiactiva";
 import { Provincia } from "./Provincia";
 import { Enforcement } from "./Enforcement";
 import { ContextoPolitico } from "./ContextoPolitico";
+import { Reglamentacion } from "./Reglamentacion";
+import { Zonificacion } from "./Zonificacion";
+import { ConflictividadVecinal } from "./ConflictividadVecinal";
+import { ArchivoReglamentacion } from "./ArchivoReglamentacion";
+import { Tazas } from "./Tazas";
 let encriptutils = require('../components/encryputils')
 @Entity()
 export class Municipalidad extends GenericEntity {
@@ -12,32 +17,32 @@ export class Municipalidad extends GenericEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column({nullable:true})
+    intendente: string;
+
     @Column()
     codigoMunicipio: string;
 
     @Column()
     nombre: string;
 
-    @Column()
+    @Column({nullable:true,type:'float'})
     latitud: number;
 
-    @Column()
+    @Column({nullable:true,type:'float'})
     longitud: number;
 
-    @Column()
-    superficie: string;
-
-    @Column()
-    scoring: number;
-
-    @Column()
-    demografia: string;
-
-    @Column()
+    @Column({nullable:true})
     telefono: string;
 
-    @Column()
+    @Column({nullable:true})
     linkMapa: string;
+
+    @Column({nullable:true,type:'float'})
+    public scoring
+
+    @Column({nullable:true})
+    urlFotoIntendente: string;
 
     @Column()
     public provinciaId: number = null
@@ -47,17 +52,27 @@ export class Municipalidad extends GenericEntity {
     @Index()
     public provincia: Provincia
 
-    @Column({ nullable: true })
-    public enforcementId: number = null
-
-    @OneToOne(type => Enforcement, enforcement => enforcement.municipalidad)
-    @JoinColumn({ name: "enforcementId" })
-    @Index()
-    public enforcement: Enforcement
+    @OneToMany(type => Enforcement, enforcement => enforcement.municipalidad)
+    public enforcements: Enforcement[]
 
     @OneToMany(type => ContextoPolitico, contextoPolitico => contextoPolitico.municipalidad)
-    public contextosPoliticos: ContextoPolitico
+    public contextosPoliticos: ContextoPolitico[]
 
+    @OneToMany(type => Reglamentacion, reglamentacion => reglamentacion.municipalidad)
+    public reglamentaciones:Reglamentacion[]
+
+    @OneToMany(type => Zonificacion, zonificacion => zonificacion.municipalidad)
+    public zonificaciones:Zonificacion[]
+
+    @OneToMany(type => ConflictividadVecinal, conflictividadVecinal => conflictividadVecinal.municipalidad)
+    conflictividadesVecinal:ConflictividadVecinal[]
+
+    @OneToMany(type => Tazas, tazas => tazas.municipalidad)
+    tazas:Tazas[]
+
+    @OneToMany(type => ArchivoReglamentacion, archivoReglamentacion => archivoReglamentacion.municipalidad)
+    archivosReglamentacion:ArchivoReglamentacion[]
+    
     @BeforeInsert()
     private validateInsert(): void {
         if (this.codigoMunicipio == null)
