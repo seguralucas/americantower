@@ -1,6 +1,7 @@
 import { GenericRepository } from './GenericRepository'; 
 import { getRepository, Repository } from 'typeorm';
 import { ContextoPolitico } from '../entity/ContextoPolitico';
+import { MunicipalidadService } from '../services/MunicipalidadService';
 /************CONFIG CLASS**************** */
 const myClass = ContextoPolitico
 /**************************************** */

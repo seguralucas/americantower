@@ -14,6 +14,7 @@ export class MsgSpanish {
     public static UNAHUTORIZED: string = "You are not authorized to use this site"
     public static MALFORMED_JSON_SELECT: string = "El formato del json array usado como select es invalido"
     public static MALFORMED_JSON_ORDER: string = "El formato del json array usado como order es invalido"
+    public static NIVEL_DE_ACUERDO_MUNICIPAL: string = "El nivel de acuerdo puede ser únicamente 0,1,2 o 3"
 
     public static CAMPO_OBLIGATORIO(campo: string) {
         return "El campo " + campo + " es obligatorio"

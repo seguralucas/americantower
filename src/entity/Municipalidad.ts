@@ -10,6 +10,7 @@ import { Zonificacion } from "./Zonificacion";
 import { ConflictividadVecinal } from "./ConflictividadVecinal";
 import { ArchivoReglamentacion } from "./ArchivoReglamentacion";
 import { Tazas } from "./Tazas";
+import { ConvenioMunicipal } from "./ConvenioMunicipal";
 let encriptutils = require('../components/encryputils')
 @Entity()
 export class Municipalidad extends GenericEntity {
@@ -44,6 +45,12 @@ export class Municipalidad extends GenericEntity {
     @Column({nullable:true})
     urlFotoIntendente: string;
 
+    @Column({nullable:false})
+    datosSolicitados: boolean=false;
+
+    @Column({nullable:false})
+    tieneDatos: boolean=false;
+
     @Column()
     public provinciaId: number = null
 
@@ -54,6 +61,9 @@ export class Municipalidad extends GenericEntity {
 
     @OneToMany(type => Enforcement, enforcement => enforcement.municipalidad)
     public enforcements: Enforcement[]
+
+    @OneToMany(type => ConvenioMunicipal, convenioMunicipal => convenioMunicipal.municipalidad)
+    public conveniosMunicipal: ConvenioMunicipal[]
 
     @OneToMany(type => ContextoPolitico, contextoPolitico => contextoPolitico.municipalidad)
     public contextosPoliticos: ContextoPolitico[]

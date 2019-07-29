@@ -43,6 +43,7 @@ genericEntitiesServicePath.push({ "route": require('./routes/reportRoutes'), "se
 genericEntitiesServicePath.push({ "route": require('./routes/ZonificacionRoutes'), "serviceName": "zonificaciones" })
 genericEntitiesServicePath.push({ "route": require('./routes/TazasRoutes'), "serviceName": "tazas" })
 genericEntitiesServicePath.push({ "route": require('./routes/ConflictividadVecinalRoutes'), "serviceName": "conflitividades-vecinal" })
+genericEntitiesServicePath.push({ "route": require('./routes/ConvenioMunicipalRoutes'), "serviceName": "convenios-municipales" })
 
 appOnPremise.use('/auth', auth);
 for (let service of genericEntitiesServicePath) {

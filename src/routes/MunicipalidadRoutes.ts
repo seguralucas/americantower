@@ -73,6 +73,16 @@ router.get('/:id/conflictividad-Vecinal', async (req, res, next) => {
 })
 
 
+router.get('/:id/convenio-municipal', async (req, res, next) => {
+    try{
+    let data=await municipalidadService.getUltimoRegistro("conveniosMunicipal","convenio_municipal",req.params.id)
+    res.send(data)
+    }catch(e){
+        responseError(res,e)
+    }
+})
+
+
 
 
 
