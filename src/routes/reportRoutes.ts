@@ -8,6 +8,12 @@ import { Msg } from '../msg/Msg';
 import { ContextoPoliticoService } from '../services/ContextoPoliticoService';
 import { ContextoPoliticoRepository } from '../repository/ContextoPoliticoRepository';
 import { ContextoPolitico } from '../entity/ContextoPolitico';
+import { ZonificacionService } from '../services/ZonificacionService';
+import { TazasService } from '../services/TazasService';
+import { ReglamentacionService } from '../services/ReglamentacionService';
+import { EnforcementService } from '../services/EnforcementService';
+import { ConvenioMunicipalService } from '../services/ConvenioMunicipalService';
+import { ConflictividadVecinalService } from '../services/ConflictividadVecinalService';
 var express = require('express');
 var router = express.Router();
 
@@ -52,16 +58,22 @@ router.post('/2', async (req, res, next) => {
 })
 
 router.post('/3', async (req, res, next) => {
-    let c:ContextoPoliticoRepository= new ContextoPoliticoRepository()
-    let mMunicipalidadService:MunicipalidadService= new MunicipalidadService()
-    var fechaNotificacionCambio = new Date();
-    fechaNotificacionCambio.setDate(fechaNotificacionCambio.getDate()-7);
-    console.log(req.body)
-    let contextoPolitico: ContextoPolitico[] = await c.getRepository().createQueryBuilder("e")
-    .where("e.updateAt >:fechaNotificacionCambio",{fechaNotificacionCambio})
-    .getMany()
-    console.log(fechaNotificacionCambio)
-    res.send(contextoPolitico)
+    const contextoPoliticoService:ContextoPoliticoService= new ContextoPoliticoService()
+    const zonificacionService:ZonificacionService= new ZonificacionService()
+    const tazasService:TazasService= new TazasService()
+    const reglamentacionesService:ReglamentacionService= new ReglamentacionService()
+    const enforcementsService:EnforcementService= new EnforcementService()
+    const conveniosMunicipalService:ConvenioMunicipalService= new ConvenioMunicipalService()
+    const conflictividadesVecinalService:ConflictividadVecinalService= new ConflictividadVecinalService()
+    let data={}
+    data["contextosPoliticos"]=await contextoPoliticoService.getNovedades()
+    data["zonificaciones"]=await zonificacionService.getNovedades()
+    data["tazas"]=await tazasService.getNovedades()
+    data["reglamentaciones"]=await reglamentacionesService.getNovedades()
+    data["enforcements"]=await enforcementsService.getNovedades()
+    data["conveniosMunicipal"]=await conveniosMunicipalService.getNovedades()
+    data["conflictividadesVecinal"]=await conflictividadesVecinalService.getNovedades()    
+    res.send(data)
 
     return
 })

@@ -23,12 +23,12 @@ appOnPremise.use(logger('dev'));
 appOnPremise.use(express.json());
 appOnPremise.use(express.urlencoded({ extended: false }));
 appOnPremise.use(cookieParser());
-appOnPremise.use(express.static(path.join(__dirname, 'public')));
+appOnPremise.use("/public",express.static(path.join(__dirname, 'public')));
 appOnPremise.use(bodyParser.urlencoded({ extended: true }));
 appOnPremise.use(bodyParser.json());
 
-appOnPremise.use(express.static(path.join(__dirname, 'public')));
-
+//appOnPremise.use(express.static(path.join(__dirname, 'public')));
+console.log(path.join(__dirname, 'public'))
 var users = require('./routes/usersRoutes');
 var auth = require('./routes/authRoutes');
 
@@ -44,6 +44,8 @@ genericEntitiesServicePath.push({ "route": require('./routes/ZonificacionRoutes'
 genericEntitiesServicePath.push({ "route": require('./routes/TazasRoutes'), "serviceName": "tazas" })
 genericEntitiesServicePath.push({ "route": require('./routes/ConflictividadVecinalRoutes'), "serviceName": "conflitividades-vecinal" })
 genericEntitiesServicePath.push({ "route": require('./routes/ConvenioMunicipalRoutes'), "serviceName": "convenios-municipales" })
+genericEntitiesServicePath.push({ "route": require('./routes/ArchivoReglamentacionRoutes'), "serviceName": "archivos-reglamentacion" })
+//appOnPremise.use('/public', express.static('public'));
 
 appOnPremise.use('/auth', auth);
 for (let service of genericEntitiesServicePath) {

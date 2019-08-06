@@ -2,9 +2,14 @@ import { addToGenericRoute } from './genericRoutes';
 import { MunicipalidadService } from '../services/MunicipalidadService';
 import { Municipalidad } from '../entity/Municipalidad';
 import { responseError } from '../components/apiHandler';
+import { ErrorBiactiva } from '../components/ErrorBiactiva';
+const fs = require('fs')
 var express = require('express');
 var router = express.Router();
-
+const multer = require('multer');
+const path = require('path');
+const PATH_UPLOAD_DIR=path.join(__dirname+('/../public/fotosIntendentes'))
+let upload = multer({ dest:  PATH_UPLOAD_DIR});
 /******************************************** */
 const service = new MunicipalidadService()
 const currentClass = Municipalidad
@@ -82,6 +87,29 @@ router.get('/:id/convenio-municipal', async (req, res, next) => {
     }
 })
 
+router.post('/:id/fotoIntendente', upload.single('myFile'), async (req, res) => {
+    try{
+        if (req.file) {
+            let filename = req.file.filename;
+            let data=req.body
+            console.log(data)
+            let municipalidadService:MunicipalidadService= new MunicipalidadService()
+            let municipalidad:Municipalidad=await municipalidadService.findById(req.params.id)
+            if(municipalidad.urlFotoIntendente!= null ){
+                try{
+                    let pathToFile=path.join(__dirname, "/../"+municipalidad.urlFotoIntendente)
+                    fs.unlinkSync(pathToFile)
+                }catch(e){}
+            }
+            municipalidad.urlFotoIntendente="/public/fotosIntendentes/"+filename
+            municipalidadService.updateById(municipalidad,municipalidad.id)
+            res.send(municipalidad);
+        } else 
+            responseError(res,new ErrorBiactiva("No se envio el archivo","No se envio el archivo",500))
+    }catch(e){
+        responseError(res,e)
+    }
+});
 
 
 

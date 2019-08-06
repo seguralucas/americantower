@@ -15,7 +15,7 @@ const service: UserService = new UserService()
 router.post('/login', async (req, res, next) => {
   console.log(req.body)
   try {
-    let user = await service.login(req.body.username, req.body.password)
+    let user = await service.login(req.body.email, req.body.password)
     let accessToken = jwt.createAccessToken(user)
     res.send({ accessToken })
   } catch (e) {

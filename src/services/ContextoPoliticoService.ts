@@ -2,6 +2,7 @@ import { GenericeService } from './GenericService';
 import { ContextoPoliticoRepository } from '../repository/ContextoPoliticoRepository';
 import { ContextoPolitico } from '../entity/ContextoPolitico';
 import { MunicipalidadService } from './MunicipalidadService';
+import { getFechaNotificacion } from '../components/fechaNotificacion';
 let encriptutils = require('../components/encryputils')
 
 /******************CONFIG CLASS************************** */

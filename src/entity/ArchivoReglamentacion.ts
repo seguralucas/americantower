@@ -7,13 +7,16 @@ export class ArchivoReglamentacion extends GenericEntity {
     id: number;
 
     @Column()
-    url: number;
+    url: string;
 
     @Column({nullable:true, type:"mediumtext"})
-    public descripcion
+    public resolucion:string
 
     @Column({nullable:true, type:"mediumtext"})
-    public titulo: number
+    public boletinOficial: string
+
+    @Column({nullable:true, type:"mediumtext"})
+    public descripcion: string
 
     @Column()
     public municipalidadId: number = null

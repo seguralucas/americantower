@@ -5,6 +5,7 @@ import { ErrorBiactiva } from '../components/ErrorBiactiva';
 import { Msg } from '../msg/Msg';
 import { UserRepository } from '../repository/UserRepository';
 import { GenericRepository } from '../repository/GenericRepository';
+import { getFechaNotificacion } from '../components/fechaNotificacion';
 let encriptutils = require('../components/encryputils')
 
 export abstract class GenericeService<E> {
@@ -31,5 +32,13 @@ export abstract class GenericeService<E> {
     }
     public async save(newObj: E) {
         return await this.genericRepository.save(newObj)
+    }
+
+    public async getNovedades():Promise<E[]>{
+        const fechaNotificacionCambio=getFechaNotificacion()
+        return this.genericRepository.getRepository().createQueryBuilder("e")
+        .innerJoinAndSelect("e.municipalidad","municipalidad")
+        .where("e.updateAt >:fechaNotificacionCambio",{fechaNotificacionCambio})
+        .getMany()
     }
 }

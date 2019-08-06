@@ -33,6 +33,7 @@ export class MunicipalidadService/**config */ extends GenericeService<Municipali
         .leftJoinAndSelect("municipalidad.enforcements","enforcements","(enforcements.id is null or enforcements.createdAt=(select MAX(e.createdAt) from enforcement as e where e.municipalidadId="+municipalidadId+"))")
         .leftJoinAndSelect("municipalidad.conveniosMunicipal","conveniosMunicipal","(conveniosMunicipal.id is null or conveniosMunicipal.createdAt=(select MAX(e.createdAt) from convenio_municipal as e where e.municipalidadId="+municipalidadId+"))")
         .leftJoinAndSelect("municipalidad.provincia","provincia")
+        .leftJoinAndSelect("municipalidad.archivosReglamentacion","archivosReglamentacion")
         .where(where)
         .getOne()
     }

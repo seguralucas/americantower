@@ -10,19 +10,19 @@ const myClass = User
 /**************************************** */
 export class UserRepository extends GenericRepository<User>{
 
-    existeUsernameToInsert = async function (username): Promise<boolean> {
-        const user: User = await this.getRepository().findOne({ where: { "username": username} });
+    existeEmailToInsert = async function (username): Promise<boolean> {
+        const user: User = await this.getRepository().findOne({ where: { "email": username} });
         return user != null
     }
 
-    existeUsernameToUpdate = async function (username, id): Promise<boolean> {
-        const user: User = await this.getRepository().findOne({ where: { "username": username, "id": Not(id) } });
+    existeEmailToUpdate = async function (username, id): Promise<boolean> {
+        const user: User = await this.getRepository().findOne({ where: { "email": username, "id": Not(id) } });
         return user != null
     }
 
 
     login = async function (username, password): Promise<User> {
-        const user: User = await this.getRepository().findOne({ where: { "username": username, "password": encriptutils.encrypt(password),"activo":true  } });
+        const user: User = await this.getRepository().findOne({ where: { "email": username, "password": encriptutils.encrypt(password),"activo":true  } });
         return user
     }
 
@@ -35,14 +35,14 @@ export class UserRepository extends GenericRepository<User>{
     }
 
     public async save(newObj: User): Promise<User> {
-        if (await this.existeUsernameToInsert(newObj.username))
+        if (await this.existeEmailToInsert(newObj.username))
             throw new ErrorBiactiva(Msg.USERNAME_DUPLICATED, Msg.USERNAME_DUPLICATED, 400)
         newObj.profileId = 2
         return super.save(newObj)
     }
 
     public async updateById(data: any, id: number): Promise<any> {
-        if (data.username != null && await this.existeUsernameToUpdate(data.username, id))
+        if (data.username != null && await this.existeEmailToUpdate(data.username, id))
             throw new ErrorBiactiva(Msg.USERNAME_DUPLICATED, Msg.USERNAME_DUPLICATED, 400)
         return super.updateById(data, id)
     }
